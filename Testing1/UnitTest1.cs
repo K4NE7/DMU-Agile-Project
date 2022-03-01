@@ -12,7 +12,7 @@ namespace Testing1
         {
             // Create instance of Staff
             clsStaff staffMember = new clsStaff();
-
+            
             Assert.IsNotNull(staffMember);
         }
 
@@ -109,4 +109,160 @@ namespace Testing1
         }
     }
 
+    [TestClass]
+    public class TstStaffFind
+    {
+        [TestMethod]
+        public void FindMethodOK()
+        {
+            clsStaff staffMember = new clsStaff();
+            Boolean found = false;
+
+            Int32 staffId = 10;
+
+            found = staffMember.Find(staffId);
+
+            Assert.IsTrue(found);
+        }
+
+        [TestMethod]
+        public void TestStaffAdministratorFound()
+        {
+            // Creating instance of class & variables
+            clsStaff staffMember = new clsStaff();
+            Boolean found = false;
+            Boolean OK = true;
+            Int32 staffId = 10;
+
+            found = staffMember.Find(staffId);
+
+            // Checking if variable matches
+            if (staffMember.administrator != true)
+            {
+                OK = false;
+            }
+
+            Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void TestStaffDOBFound()
+        {
+            // Creating instance of class & variables
+            clsStaff staffMember = new clsStaff();
+            Boolean found = false;
+            Boolean OK = true;
+            Int32 staffId = 10;
+
+            found = staffMember.Find(staffId);
+
+            // Checking if variable matches
+            if (staffMember.staffDOB != Convert.ToDateTime("15/01/2002"))
+            {
+                OK = false;
+            }
+
+            Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void TestStaffEmailFound()
+        {
+            // Creating instance of class & variables
+            clsStaff staffMember = new clsStaff();
+            Boolean found = false;
+            Boolean OK = true;
+            Int32 staffId = 10;
+
+            found = staffMember.Find(staffId);
+
+            // Checking if variable matches
+            if (staffMember.staffEmail != "oscarsoanes@kores.co.uk")
+            {
+                OK = false;
+            }
+
+            Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void TestStaffFullNameFound()
+        {
+            // Creating instance of class & variables
+            clsStaff staffMember = new clsStaff();
+            Boolean found = false;
+            Boolean OK = true;
+            Int32 staffId = 10;
+
+            found = staffMember.Find(staffId);
+
+            // Checking if variable matches
+            if (staffMember.staffFullName != "Oscar Soanes")
+            {
+                OK = false;
+            }
+
+            Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void TestStaffIDFound()
+        {
+            // Creating instance of class & variables
+            clsStaff staffMember = new clsStaff();
+            Boolean found = false;
+            Boolean OK = true;
+            Int32 staffId = 10;
+
+            found = staffMember.Find(staffId);
+
+            // Checking if variable matches
+            if (staffMember.staffId != 10)
+            {
+                OK = false;
+            }
+
+            Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void TestStaffPasswordOK()
+        {
+            // Creating instance of class & variables
+            clsStaff staffMember = new clsStaff();
+            Boolean found = false;
+            Boolean OK = true;
+            Int32 staffId = 10;
+
+            found = staffMember.Find(staffId);
+
+            // Checking if variable matches
+            if (staffMember.staffPassword != "I-h4te-sql")
+            {
+                OK = false;
+            }
+
+            Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void TestStaffSalaryFound()
+        {
+            // Creating instance of class & variables
+            clsStaff staffMember = new clsStaff();
+            Boolean found = false;
+            Boolean OK = true;
+            Int32 staffId = 10;
+
+            found = staffMember.Find(staffId);
+
+            // Checking if variable matches
+            if (staffMember.staffSalary != 1.99)
+            {
+                OK = false;
+            }
+
+            Assert.IsTrue(OK);
+        }
+    }
 }
