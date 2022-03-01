@@ -53,14 +53,33 @@ namespace ClassLibrary
 
         public bool Find(int staffId)
         {
-            privAdministrator = true;
-            privStaffDOB = Convert.ToDateTime("15/01/2002");
-            privStaffEmail = "oscarsoanes@kores.co.uk";
-            privStaffFullName = "Oscar Soanes";
-            privStaffPassword = "I-h4te-sql";
-            privStaffSalary = 1.99;
-            privStaffID = 10;
-            return true;
+            // create instance of DB connection
+            clsDataConnection DB = new clsDataConnection();
+
+            // check for the staff member to search for and excute stored procedure
+            DB.AddParameter("@staffID", staffId);
+            DB.Execute("sproc_tblStaff_FilterByStaffID");
+
+            // check if a record is found (only can be 1 or 0)
+
+            if (DB.Count == 1)
+            {
+                privStaffID = Convert.ToInt32(DB.DataTable.Rows[0]["StaffID"]);
+                privStaffFullName = Convert.ToString(DB.DataTable.Rows[0]["StaffFullName"]);
+                privStaffEmail = Convert.ToString(DB.DataTable.Rows[0]["StaffEmail"]);
+                privStaffPassword = Convert.ToString(DB.DataTable.Rows[0]["StaffPassword"]);
+                privStaffDOB = Convert.ToDateTime(DB.DataTable.Rows[0]["StaffDOB"]);
+                privStaffSalary = Convert.ToDouble(DB.DataTable.Rows[0]["StaffSalary"]);
+                privAdministrator = Convert.ToBoolean(DB.DataTable.Rows[0]["Administrator"]);
+
+                return true;
+            }
+
+            // nothing was found
+            else
+            {
+                return false;
+            }
         }
     }
 }
