@@ -9,6 +9,7 @@ namespace ClassLibrary
         public DateTime orderDate { get; set; }
         public bool keySent { get; set; }
         public string extraDetails { get; set; }
-        public int staffID { get; set; }
+        public int productID { get; set; }
+        public int quantity { get; set; }
     }
 }

@@ -76,15 +76,27 @@ namespace TestingOrders
         }
 
         [TestMethod]
-        public void staffIdOrderOk()
+        public void productIdOrderOk()
         {
             clsOrders anOrder = new clsOrders();
 
-            int testData = 1;
+            int testData = 137;
 
-            anOrder.staffID = testData;
+            anOrder.productID = testData;
 
-            Assert.AreEqual(anOrder.staffID, testData);
+            Assert.AreEqual(anOrder.productID, testData);
+        }
+
+        [TestMethod]
+        public void quantityOrderOk()
+        {
+            clsOrders anOrder = new clsOrders();
+
+            int testData = 2;
+
+            anOrder.quantity = testData;
+
+            Assert.AreEqual(anOrder.quantity, testData);
         }
 
     }
