@@ -15,20 +15,37 @@ public partial class _1_DataEntry : System.Web.UI.Page
 
     protected void btnOK_Click(object sender, EventArgs e)
     {
-        // Create new instance of clsStaff
-        clsStaff staffMember = new clsStaff
+        clsStaff staffMember = new clsStaff();
+
+        // collect all fields
+        string staffFullName = txtStaffFullName.Text;
+        string staffEmail = txtStaffEmail.Text;
+        string staffPassword = txtStaffPassword.Text;
+        string staffDOB = txtStaffDOB.Text;
+        string staffSalary = txtStaffSalary.Text;
+        bool administrator = txtStaffAdmin.Checked;
+
+        String Error = "";
+        Error = staffMember.Valid(staffFullName, staffEmail, staffPassword, staffDOB, staffSalary);
+        
+        // Ensure it passes all validation, if passes redirects else provides error message(s)
+        if (Error == "")
         {
-            staffFullName = txtStaffFullName.Text,
-            staffEmail = txtStaffEmail.Text,
-            staffPassword = txtStaffPassword.Text,
-            staffSalary = Convert.ToDouble(txtStaffSalary.Text),
-            staffDOB = Convert.ToDateTime(txtStaffDOB.Text),
-            administrator = txtStaffAdmin.Checked
-        };
+            staffMember.staffFullName = staffFullName;
+            staffMember.staffEmail = staffEmail;
+            staffMember.staffPassword = staffPassword;
+            staffMember.staffDOB = Convert.ToDateTime(staffDOB);
+            staffMember.staffSalary = Convert.ToDouble(staffSalary);
+            staffMember.administrator = administrator;
 
-        Session["staffMember"] = staffMember;
-
-        Response.Redirect("staffViewer.aspx");
+            Session["staffMember"] = staffMember;
+            Response.Redirect("staffViewer.aspx");
+        }
+        else
+        {
+            lblError.Text = Error;
+        }
+       
 
         
 
