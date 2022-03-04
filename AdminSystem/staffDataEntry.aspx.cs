@@ -38,8 +38,12 @@ public partial class _1_DataEntry : System.Web.UI.Page
             staffMember.staffSalary = Convert.ToDouble(staffSalary);
             staffMember.administrator = administrator;
 
-            Session["staffMember"] = staffMember;
-            Response.Redirect("staffViewer.aspx");
+            clsStaffCollection staffList = new clsStaffCollection();
+            staffList.ThisStaffMember = staffMember;
+            staffList.Add();
+
+            Response.Redirect("staffList.aspx");
+            
         }
         else
         {

@@ -17,6 +17,12 @@ public partial class _1_List : System.Web.UI.Page
         }
     }
 
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Session["staffID"] = -1;
+        Response.Redirect("staffDataEntry.aspx");
+    }
+
     void DisplayStaffMembers()
     {
         clsStaffCollection staffMembers = new clsStaffCollection();
