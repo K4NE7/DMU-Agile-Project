@@ -6,6 +6,7 @@ namespace ClassLibrary
     public class clsStaffCollection
     {
         List<clsStaff> staffMembers = new List<clsStaff>();
+        clsStaff staff = new clsStaff();
 
         // Constructor
         public clsStaffCollection()
@@ -45,6 +46,32 @@ namespace ClassLibrary
             get { return staffMembers.Count; }
             set { }
         }
-        public clsStaff ThisStaffMember { get; set; }
+        public clsStaff ThisStaffMember
+        {
+            get
+            {
+                return staff;
+            }
+            set
+            {
+                staff = value;
+            }
+        }
+
+       
+
+        public int Add()
+        {
+            clsDataConnection DB = new clsDataConnection();
+
+            DB.AddParameter("@staffFullName", staff.staffFullName);
+            DB.AddParameter("@staffEmail", staff.staffEmail);
+            DB.AddParameter("@staffPassword", staff.staffPassword);
+            DB.AddParameter("@staffDOB", staff.staffDOB);
+            DB.AddParameter("@staffSalary", staff.staffSalary);
+            DB.AddParameter("@administrator", staff.administrator);
+
+            return DB.Execute("sproc_tblStaff_Insert");
+        }
     }
 }

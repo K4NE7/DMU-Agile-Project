@@ -77,5 +77,29 @@ namespace Testing1
 
             Assert.AreEqual(staffList.Count, TestList.Count);
         }
+
+        [TestMethod]
+        public void AddMethodOK()
+        {
+            clsStaffCollection staffList = new clsStaffCollection();
+            clsStaff staffMember = new clsStaff();
+            Int32 PrimaryKey = 0;
+
+            staffMember.staffId = 1;
+            staffMember.staffFullName = "Bob Al";
+            staffMember.staffEmail = "bobal@kores.co.uk";
+            staffMember.staffPassword = "abcdefghijk";
+            staffMember.staffSalary = 78213.11;
+            staffMember.staffDOB = DateTime.Now.Date.AddYears(-53);
+            staffMember.administrator = true;
+
+            staffList.ThisStaffMember = staffMember;
+            PrimaryKey = staffList.Add();
+
+            staffMember.staffId = PrimaryKey;
+            staffList.ThisStaffMember.Find(PrimaryKey);
+
+            Assert.AreEqual(staffList.ThisStaffMember, staffMember);
+        }
     }
 }
