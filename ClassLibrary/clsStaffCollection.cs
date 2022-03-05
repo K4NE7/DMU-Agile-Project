@@ -73,5 +73,20 @@ namespace ClassLibrary
 
             return DB.Execute("sproc_tblStaff_Insert");
         }
+
+        public void Update()
+        {
+            clsDataConnection DB = new clsDataConnection();
+
+            DB.AddParameter("@staffId", staff.staffId);
+            DB.AddParameter("@staffFullName", staff.staffFullName);
+            DB.AddParameter("@staffEmail", staff.staffEmail);
+            DB.AddParameter("@staffPassword", staff.staffPassword);
+            DB.AddParameter("@staffDOB", staff.staffDOB);
+            DB.AddParameter("@staffSalary", staff.staffSalary);
+            DB.AddParameter("@administrator", staff.administrator);
+
+            DB.Execute("sproc_tblStaff_Update");
+        }
     }
 }

@@ -8,9 +8,32 @@ using ClassLibrary;
 
 public partial class _1_DataEntry : System.Web.UI.Page
 {
+    Int32 staffId;
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        staffId = Convert.ToInt32(Session["staffID"]);
 
+        if (IsPostBack == false)
+        {
+            if (staffId != -1)
+            {
+                DisplayStaff();
+            }
+        }
+    }
+    
+    void DisplayStaff()
+    {
+        clsStaffCollection clsStaffCollection = new clsStaffCollection();
+
+        clsStaffCollection.ThisStaffMember.Find(staffId);
+        txtStaffFullName.Text = clsStaffCollection.ThisStaffMember.staffFullName;
+        txtStaffEmail.Text = clsStaffCollection.ThisStaffMember.staffEmail;
+        txtStaffPassword.Text = clsStaffCollection.ThisStaffMember.staffPassword;
+        txtStaffDOB.Text = clsStaffCollection.ThisStaffMember.staffDOB.ToString();
+        txtStaffSalary.Text = clsStaffCollection.ThisStaffMember.staffSalary.ToString();
+        txtStaffAdmin.Text = clsStaffCollection.ThisStaffMember.administrator.ToString();
     }
 
     protected void btnOK_Click(object sender, EventArgs e)
@@ -31,6 +54,7 @@ public partial class _1_DataEntry : System.Web.UI.Page
         // Ensure it passes all validation, if passes redirects else provides error message(s)
         if (Error == "")
         {
+            staffMember.staffId = staffId;
             staffMember.staffFullName = staffFullName;
             staffMember.staffEmail = staffEmail;
             staffMember.staffPassword = staffPassword;
@@ -39,22 +63,30 @@ public partial class _1_DataEntry : System.Web.UI.Page
             staffMember.administrator = administrator;
 
             clsStaffCollection staffList = new clsStaffCollection();
-            staffList.ThisStaffMember = staffMember;
-            staffList.Add();
+            
+            if (staffId == -1)
+            {
+                staffList.ThisStaffMember = staffMember;
+                staffList.Add();
+            }
+            else
+            {
+                staffList.ThisStaffMember.Find(staffId);
+                staffList.ThisStaffMember = staffMember;
+                staffList.Update();
+            }
 
             Response.Redirect("staffList.aspx");
-            
         }
         else
         {
             lblError.Text = Error;
+            Error = "";
         }
-       
-
-        
-
     
     }
-
-   
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("staffList.aspx");
+    }
 }

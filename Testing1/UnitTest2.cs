@@ -19,7 +19,7 @@ namespace Testing1
         [TestMethod]
         public void StaffListOK()
         {
-            clsStaffCollection allStaffMembers = new clsStaffCollection();
+            clsStaffCollection clsStaffCollection = new clsStaffCollection();
             List<clsStaff> TestList = new List<clsStaff>();
 
             clsStaff TestItem = new clsStaff();
@@ -33,15 +33,15 @@ namespace Testing1
 
             TestList.Add(TestItem);
 
-            allStaffMembers.staffList = TestList;
+            clsStaffCollection.staffList = TestList;
 
-            Assert.AreEqual(allStaffMembers.staffList, TestList);
+            Assert.AreEqual(clsStaffCollection.staffList, TestList);
         }
 
         [TestMethod]
         public void ThisStaffMemberOK()
         {
-            clsStaffCollection staffList = new clsStaffCollection();
+            clsStaffCollection clsStaffCollection = new clsStaffCollection();
             clsStaff testStaffMember = new clsStaff();
 
             testStaffMember.staffId = 1;
@@ -52,15 +52,15 @@ namespace Testing1
             testStaffMember.staffDOB = DateTime.Now.Date.AddYears(-53);
             testStaffMember.administrator = true;
 
-            staffList.ThisStaffMember = testStaffMember;
+            clsStaffCollection.ThisStaffMember = testStaffMember;
 
-            Assert.AreEqual(staffList.ThisStaffMember, testStaffMember);
+            Assert.AreEqual(clsStaffCollection.ThisStaffMember, testStaffMember);
             
         }
 
         public void ListAndCountOK()
         {
-            clsStaffCollection staffList = new clsStaffCollection();
+            clsStaffCollection clsStaffCollection = new clsStaffCollection();
             List<clsStaff> TestList = new List<clsStaff>();
             clsStaff testStaffMember = new clsStaff();
 
@@ -73,15 +73,15 @@ namespace Testing1
             testStaffMember.administrator = true;
 
             TestList.Add(testStaffMember);
-            staffList.ThisStaffMember = testStaffMember;
+            clsStaffCollection.ThisStaffMember = testStaffMember;
 
-            Assert.AreEqual(staffList.Count, TestList.Count);
+            Assert.AreEqual(clsStaffCollection.Count, TestList.Count);
         }
 
         [TestMethod]
         public void AddMethodOK()
         {
-            clsStaffCollection staffList = new clsStaffCollection();
+            clsStaffCollection clsStaffCollection = new clsStaffCollection();
             clsStaff staffMember = new clsStaff();
             Int32 PrimaryKey = 0;
 
@@ -93,13 +93,54 @@ namespace Testing1
             staffMember.staffDOB = DateTime.Now.Date.AddYears(-53);
             staffMember.administrator = true;
 
-            staffList.ThisStaffMember = staffMember;
-            PrimaryKey = staffList.Add();
+            clsStaffCollection.ThisStaffMember = staffMember;
+            PrimaryKey = clsStaffCollection.Add();
 
             staffMember.staffId = PrimaryKey;
-            staffList.ThisStaffMember.Find(PrimaryKey);
+            clsStaffCollection.ThisStaffMember.Find(PrimaryKey);
 
-            Assert.AreEqual(staffList.ThisStaffMember, staffMember);
+            Assert.AreEqual(clsStaffCollection.ThisStaffMember, staffMember);
         }
+
+        [TestMethod]
+        public void UpdateMethodOK()
+        {
+            clsStaffCollection clsStaffCollection = new clsStaffCollection();
+            clsStaff staffMember = new clsStaff();
+
+            // Initial data
+            int PrimaryKey = 0;
+            staffMember.staffId = 1;
+            staffMember.staffFullName = "Bob Al";
+            staffMember.staffEmail = "bobal@kores.co.uk";
+            staffMember.staffPassword = "abcdefghijk";
+            staffMember.staffSalary = 78213.11;
+            staffMember.staffDOB = DateTime.Now.Date.AddYears(-53);
+            staffMember.administrator = true;
+
+            // Add record
+            clsStaffCollection.ThisStaffMember = staffMember;
+            PrimaryKey = clsStaffCollection.Add();
+            staffMember.staffId = PrimaryKey;
+
+            // Updated original data
+            staffMember.staffId = 1;
+            staffMember.staffFullName = "John Al";
+            staffMember.staffEmail = "johnal@kores.co.uk";
+            staffMember.staffPassword = "changedpassword";
+            staffMember.staffSalary = 43921.11;
+            staffMember.staffDOB = DateTime.Now.Date.AddYears(-53);
+            staffMember.administrator = false;
+
+            clsStaffCollection.ThisStaffMember = staffMember;
+            clsStaffCollection.Update();
+
+            clsStaffCollection.ThisStaffMember.Find(PrimaryKey);
+
+            Assert.AreEqual(clsStaffCollection.ThisStaffMember, staffMember);
+
+
+
+        }     
     }
 }

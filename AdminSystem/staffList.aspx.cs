@@ -19,8 +19,26 @@ public partial class _1_List : System.Web.UI.Page
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
+        // -1 means that it must be a new record
         Session["staffID"] = -1;
         Response.Redirect("staffDataEntry.aspx");
+    }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        Int32 staffId;
+
+        if (lstStaffList.SelectedIndex != -1)
+        {
+            staffId = Convert.ToInt32(lstStaffList.SelectedValue);
+
+            Session["staffID"] = staffId;
+            Response.Redirect("staffDataEntry.aspx");
+        }
+        else
+        {
+            lblError.Text = "Please select a record to edit from the list";
+        }
     }
 
     void DisplayStaffMembers()
