@@ -55,7 +55,7 @@ namespace Testing1
             clsStaffCollection.ThisStaffMember = testStaffMember;
 
             Assert.AreEqual(clsStaffCollection.ThisStaffMember, testStaffMember);
-            
+
         }
 
         public void ListAndCountOK()
@@ -85,6 +85,7 @@ namespace Testing1
             clsStaff staffMember = new clsStaff();
             Int32 PrimaryKey = 0;
 
+            // Initial data
             staffMember.staffId = 1;
             staffMember.staffFullName = "Bob Al";
             staffMember.staffEmail = "bobal@kores.co.uk";
@@ -93,6 +94,7 @@ namespace Testing1
             staffMember.staffDOB = DateTime.Now.Date.AddYears(-53);
             staffMember.administrator = true;
 
+            // Adding record
             clsStaffCollection.ThisStaffMember = staffMember;
             PrimaryKey = clsStaffCollection.Add();
 
@@ -132,15 +134,44 @@ namespace Testing1
             staffMember.staffDOB = DateTime.Now.Date.AddYears(-53);
             staffMember.administrator = false;
 
+            // Updating record by finding primary key
             clsStaffCollection.ThisStaffMember = staffMember;
             clsStaffCollection.Update();
 
             clsStaffCollection.ThisStaffMember.Find(PrimaryKey);
 
             Assert.AreEqual(clsStaffCollection.ThisStaffMember, staffMember);
+        }
 
+        [TestMethod]
+        public void DeleteMethodOK()
+        {
+            clsStaffCollection clsStaffCollection = new clsStaffCollection();
+            clsStaff staffMember = new clsStaff();
 
+            Int32 PrimaryKey = 0;
 
-        }     
+            // Initial data
+            staffMember.staffId = 1;
+            staffMember.staffFullName = "Test Delete Record";
+            staffMember.staffEmail = "testdelete@kores.co.uk";
+            staffMember.staffPassword = "pleasedeleteme";
+            staffMember.staffSalary = 404;
+            staffMember.staffDOB = DateTime.Now.Date.AddYears(-34);
+            staffMember.administrator = false;
+
+            // Adding record
+            clsStaffCollection.ThisStaffMember = staffMember;
+            PrimaryKey = clsStaffCollection.Add();
+
+            // Find record
+            clsStaffCollection.ThisStaffMember.Find(PrimaryKey);
+
+            // Deleting record
+            clsStaffCollection.Delete();
+
+            Boolean Found = clsStaffCollection.ThisStaffMember.Find(PrimaryKey);
+            Assert.IsFalse(Found);
+        }
     }
 }
