@@ -173,5 +173,57 @@ namespace Testing1
             Boolean Found = clsStaffCollection.ThisStaffMember.Find(PrimaryKey);
             Assert.IsFalse(Found);
         }
+
+        [TestMethod]
+        public void ReportByFullNamesMethodOK()
+        {
+            clsStaffCollection clsStaffCollection = new clsStaffCollection();
+            clsStaffCollection filteredStaffCollection = new clsStaffCollection();
+
+            filteredStaffCollection.ReportByFullName("");
+            Assert.AreEqual(clsStaffCollection.Count, filteredStaffCollection.Count);
+        }
+
+        [TestMethod]
+        public void ReportByFullNamesNoneFound()
+        {
+            clsStaffCollection clsStaffCollection = new clsStaffCollection();
+
+            // check for name that does not exist in db
+            clsStaffCollection.ReportByFullName("xxxxxxxxxxxx");
+
+            Assert.AreEqual(0, clsStaffCollection.Count);
+        }
+
+        [TestMethod]
+        public void ReportByFullNamesFound()
+        {
+            clsStaffCollection clsStaffCollection = new clsStaffCollection();
+
+            Boolean OK = true;
+            clsStaffCollection.ReportByFullName("Oscar Soanes");
+
+            if (clsStaffCollection.Count == 2)
+            {
+                // check first record is id 10
+                if (clsStaffCollection.staffList[0].staffId != 10)
+                {
+                    OK = false;
+                }
+
+                // check first record is id 1015 ???
+                if (clsStaffCollection.staffList[1].staffId != 1015)
+                {
+                    OK = false;
+                }
+
+            } 
+            else
+            {
+                OK = false;
+            }
+
+            Assert.IsTrue(OK);
+        }
     }
 }

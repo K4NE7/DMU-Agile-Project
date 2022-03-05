@@ -27,6 +27,7 @@ public partial class _1_DataEntry : System.Web.UI.Page
     {
         clsStaffCollection clsStaffCollection = new clsStaffCollection();
 
+        // collect previous fields from list
         clsStaffCollection.ThisStaffMember.Find(staffId);
         txtStaffFullName.Text = clsStaffCollection.ThisStaffMember.staffFullName;
         txtStaffEmail.Text = clsStaffCollection.ThisStaffMember.staffEmail;
@@ -54,6 +55,7 @@ public partial class _1_DataEntry : System.Web.UI.Page
         // Ensure it passes all validation, if passes redirects else provides error message(s)
         if (Error == "")
         {
+            // store fields
             staffMember.staffId = staffId;
             staffMember.staffFullName = staffFullName;
             staffMember.staffEmail = staffEmail;
@@ -64,6 +66,7 @@ public partial class _1_DataEntry : System.Web.UI.Page
 
             clsStaffCollection staffList = new clsStaffCollection();
             
+            // check if new record or editing existing record
             if (staffId == -1)
             {
                 staffList.ThisStaffMember = staffMember;

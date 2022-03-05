@@ -28,6 +28,7 @@ public partial class _1_List : System.Web.UI.Page
     {
         Int32 staffId;
 
+        // check if user is selected on field then edit
         if (lstStaffList.SelectedIndex != -1)
         {
             staffId = Convert.ToInt32(lstStaffList.SelectedValue);
@@ -45,6 +46,7 @@ public partial class _1_List : System.Web.UI.Page
     {
         Int32 staffId;
 
+        // check if user is selected on a field then delete
         if (lstStaffList.SelectedIndex != -1 )
         {
             staffId = Convert.ToInt32(lstStaffList.SelectedIndex);
@@ -68,5 +70,35 @@ public partial class _1_List : System.Web.UI.Page
 
         lstStaffList.DataBind();
 
+    }
+
+    protected void btnApply_Click(object sender, EventArgs e)
+    {
+        clsStaffCollection clsStaffCollection = new clsStaffCollection();
+
+        // set filter to search for user input
+        clsStaffCollection.ReportByFullName(txtEnterFullName.Text);
+        lstStaffList.DataSource = clsStaffCollection.staffList;
+
+        lstStaffList.DataValueField = "staffID";
+        lstStaffList.DataTextField = "staffFullName";
+
+        lstStaffList.DataBind();
+    }
+
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        clsStaffCollection clsStaffCollection = new clsStaffCollection();
+
+        clsStaffCollection.ReportByFullName("");
+
+        // reset filter search to "" (everything)
+        txtEnterFullName.Text = "";
+        lstStaffList.DataSource = clsStaffCollection.staffList;
+
+        lstStaffList.DataValueField = "staffID";
+        lstStaffList.DataTextField = "staffFullName";
+
+        lstStaffList.DataBind();
     }
 }
