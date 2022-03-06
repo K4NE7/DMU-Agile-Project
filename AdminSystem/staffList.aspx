@@ -24,7 +24,7 @@
                 <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" />
             </div>
             <div>
-                <asp:Label ID="lblError" runat="server" Text=""></asp:Label>
+                <asp:Label ID="lblError" runat="server" Text="" ForeColor="DarkRed"></asp:Label>
             </div>
         </div>
     </form>

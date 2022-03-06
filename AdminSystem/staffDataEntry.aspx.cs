@@ -18,6 +18,7 @@ public partial class _1_DataEntry : System.Web.UI.Page
         {
             if (staffId != -1)
             {
+                txtStaffID.ReadOnly = true;
                 DisplayStaff();
             }
         }
@@ -29,12 +30,13 @@ public partial class _1_DataEntry : System.Web.UI.Page
 
         // collect previous fields from list
         clsStaffCollection.ThisStaffMember.Find(staffId);
+        txtStaffID.Text = clsStaffCollection.ThisStaffMember.staffId.ToString();
         txtStaffFullName.Text = clsStaffCollection.ThisStaffMember.staffFullName;
         txtStaffEmail.Text = clsStaffCollection.ThisStaffMember.staffEmail;
         txtStaffPassword.Text = clsStaffCollection.ThisStaffMember.staffPassword;
         txtStaffDOB.Text = clsStaffCollection.ThisStaffMember.staffDOB.ToString();
         txtStaffSalary.Text = clsStaffCollection.ThisStaffMember.staffSalary.ToString();
-        txtStaffAdmin.Text = clsStaffCollection.ThisStaffMember.administrator.ToString();
+        txtStaffAdmin.Checked = clsStaffCollection.ThisStaffMember.administrator;
     }
 
     protected void btnFind_Click(object sender, EventArgs e)
@@ -43,21 +45,27 @@ public partial class _1_DataEntry : System.Web.UI.Page
         Int32 staffId;
         Boolean Found = false;
         lblError.Text = "";
-
-        staffId = Convert.ToInt32(txtStaffID.Text);
-        Found = staffMember.Find(staffId);
-        if (Found == true)
+        try
         {
-            txtStaffFullName.Text = staffMember.staffFullName;
-            txtStaffEmail.Text = staffMember.staffEmail;
-            txtStaffPassword.Text = staffMember.staffPassword;
-            txtStaffDOB.Text = staffMember.staffDOB.ToString();
-            txtStaffSalary.Text = staffMember.staffSalary.ToString();
-            txtStaffAdmin.Checked = staffMember.administrator;
+            staffId = Convert.ToInt32(txtStaffID.Text);
+            Found = staffMember.Find(staffId);
+            if (Found == true)
+            {
+                txtStaffFullName.Text = staffMember.staffFullName;
+                txtStaffEmail.Text = staffMember.staffEmail;
+                txtStaffPassword.Text = staffMember.staffPassword;
+                txtStaffDOB.Text = staffMember.staffDOB.ToString();
+                txtStaffSalary.Text = staffMember.staffSalary.ToString();
+                txtStaffAdmin.Checked = staffMember.administrator;
+            }
+            else
+            {
+                lblError.Text = "No staff member has the id {" + staffId + "}";
+            }
         }
-        else
+        catch (Exception)
         {
-            lblError.Text = "No staff member has the id {" + staffId + "}";
+            lblError.Text = "That is an invalid id";
         }
     }
 
