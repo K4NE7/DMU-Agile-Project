@@ -37,6 +37,30 @@ public partial class _1_DataEntry : System.Web.UI.Page
         txtStaffAdmin.Text = clsStaffCollection.ThisStaffMember.administrator.ToString();
     }
 
+    protected void btnFind_Click(object sender, EventArgs e)
+    {
+        clsStaff staffMember = new clsStaff();
+        Int32 staffId;
+        Boolean Found = false;
+        lblError.Text = "";
+
+        staffId = Convert.ToInt32(txtStaffID.Text);
+        Found = staffMember.Find(staffId);
+        if (Found == true)
+        {
+            txtStaffFullName.Text = staffMember.staffFullName;
+            txtStaffEmail.Text = staffMember.staffEmail;
+            txtStaffPassword.Text = staffMember.staffPassword;
+            txtStaffDOB.Text = staffMember.staffDOB.ToString();
+            txtStaffSalary.Text = staffMember.staffSalary.ToString();
+            txtStaffAdmin.Checked = staffMember.administrator;
+        }
+        else
+        {
+            lblError.Text = "No staff member has the id {" + staffId + "}";
+        }
+    }
+
     protected void btnOK_Click(object sender, EventArgs e)
     {
         clsStaff staffMember = new clsStaff();
