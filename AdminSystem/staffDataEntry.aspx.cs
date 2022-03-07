@@ -18,6 +18,7 @@ public partial class _1_DataEntry : System.Web.UI.Page
         {
             if (staffId != -1)
             {
+                lblError.Text = staffId.ToString();
                 txtStaffID.ReadOnly = true;
                 DisplayStaff();
             }

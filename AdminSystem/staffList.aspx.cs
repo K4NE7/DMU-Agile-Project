@@ -49,7 +49,7 @@ public partial class _1_List : System.Web.UI.Page
         // check if user is selected on a field then delete
         if (lstStaffList.SelectedIndex != -1 )
         {
-            staffId = Convert.ToInt32(lstStaffList.SelectedIndex);
+            staffId = Convert.ToInt32(lstStaffList.SelectedValue);
 
             Session["staffID"] = staffId;
             Response.Redirect("staffConfirmDelete.aspx");
