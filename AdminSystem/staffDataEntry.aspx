@@ -9,6 +9,11 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:Label ID="lblStaffID" runat="server" Text="ID" width="104px"></asp:Label>
+            <asp:TextBox ID="txtStaffID" runat="server" Height="25px" Width="168px" ReadOnly="false"></asp:TextBox>
+            <asp:Button ID="btnFind" runat="server" Text="Find" OnClick="btnFind_Click" />
+        </div>
+        <div>
             <asp:Label ID="lblStaffFullName" runat="server" Text="Fullname" width="104px"></asp:Label>
             <asp:TextBox ID="txtStaffFullName" runat="server" Height="25px" Width="168px"></asp:TextBox>
         </div>
@@ -29,7 +34,7 @@
         </div>
 
         <div>
-            <asp:Label ID="lblStaffSalary" runat="server" Text="Salary" width="104px" height="22px"></asp:Label>
+            <asp:Label ID="lblStaffSalary" runat="server" Text="Salary" width="104px" height="22px" ></asp:Label>
             <asp:TextBox ID="txtStaffSalary" runat="server" Height="25px" Width="168px"></asp:TextBox>
         </div>
 
@@ -42,7 +47,12 @@
             <br />
             <br />
             <asp:Button ID="btnOK" runat="server" Text="OK" OnClick="btnOK_Click" />
-            <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+            <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click" />
+        </div>
+
+        <div>
+              <asp:Label ID="lblError" runat="server" Text="" height="22px" width="272px" ForeColor="DarkRed"></asp:Label>
+             
         </div>
 
     </form>
